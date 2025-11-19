@@ -1,17 +1,49 @@
-<ion-header>
+<ion-header class="">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Lanches
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-list *ngFor ="let produto of lanches">
+  <ion-item-sliding>
+    <ion-item-options side="start">
+      <ion-item-option color="success">Editar</ion-item-option>
+    </ion-item-options>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+    <ion-item >
+      <ion-avatar>
+        <img class="avatar" [src]="produto.imagem" [alt]="produto.nome" />
+      </ion-avatar>
+
+      <ion-label class="label">
+        <h2>
+          {{produto.nome}}
+        </h2>
+        <h4 class="preco">
+          R$ {{produto.preco}}
+        </h4>
+        <p>
+          {{produto.ingredientes}}
+        </p>
+      </ion-label>
+      <ion-button shape="round" slot="end" fill="clear" class="btn-icon" (click)="adicionarProduto(produto)">
+        <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+    <ion-item-options side="end">
+      <ion-item-option color="danger">Deletar</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+
+</ion-list>
+  
+
+
 </ion-content>

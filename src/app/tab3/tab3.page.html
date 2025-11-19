@@ -1,17 +1,104 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
     <ion-title>
-      Tab 3
+      Carrinho
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="cart-content">
+  <ng-container *ngIf="possuiItens; else emptyCart">
+    <ion-list>
+      <ion-item-sliding *ngFor="let produto of pedido; trackBy: trackBySequencial">
+        <ion-item>
+          <ion-avatar slot="start">
+            <img [src]="produto.imagem" [alt]="produto.nome" />
+          </ion-avatar>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+          <ion-label>
+            <div class="item-header">
+              <h2>{{ produto.nome }}</h2>
+              <span class="price">
+                R$ {{ produto.preco | number: '1.2-2' }}
+              </span>
+            </div>
+            <p class="ingredientes">{{ produto.ingredientes.join(', ') }}</p>
+            <p class="ingredientes-removidos" *ngIf="produto.ingredientesRemovidos.length">
+              Sem {{ produto.ingredientesRemovidos.join(', ') }}
+            </p>
+          </ion-label>
+
+          <ion-buttons slot="end">
+            <ion-button fill="clear" size="small" (click)="editarIngredientes(produto)">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="danger" size="small" (click)="removerItem(produto.idSequencial)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+
+        <ion-item
+          *ngIf="itemEditando?.idSequencial === produto.idSequencial"
+          lines="none"
+          class="edit-item"
+        >
+          <ion-label>
+            <h3>Editar ingredientes</h3>
+            <div>
+              <ion-item *ngFor="let ingrediente of produto.ingredientes" lines="none">
+                <ion-checkbox
+                  slot="start"
+                  [checked]="ingredientesSelecionados[ingrediente]"
+                  (ionChange)="ingredientesSelecionados[ingrediente] = $event.detail.checked"
+                >
+                </ion-checkbox>
+                <ion-label>{{ ingrediente }}</ion-label>
+              </ion-item>
+            </div>
+            <div class="edit-actions">
+              <ion-button fill="outline" size="small" (click)="cancelarEdicao()">
+                Cancelar
+              </ion-button>
+              <ion-button fill="solid" size="small" (click)="salvarIngredientes()">
+                Salvar
+              </ion-button>
+            </div>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="start">
+          <ion-item-option color="medium" (click)="editarIngredientes(produto)">
+            Editar
+          </ion-item-option>
+        </ion-item-options>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="removerItem(produto.idSequencial)">
+            Remover
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-card class="total-card">
+      <ion-item lines="none">
+        <ion-label>Total do pedido</ion-label>
+        <ion-note slot="end">R$ {{ totalPedido | number: '1.2-2' }}</ion-note>
+      </ion-item>
+      <ion-button expand="block" color="success">
+        Finalizar pedido
+      </ion-button>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #emptyCart>
+    <div class="empty-state">
+      <ion-icon name="cart-outline"></ion-icon>
+      <h2>Seu carrinho está vazio</h2>
+      <p>Adicione lanches ou bebidas para começar o pedido.</p>
+    </div>
+  </ng-template>
 </ion-content>

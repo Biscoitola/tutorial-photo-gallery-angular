@@ -1,3 +1,64 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
+
+.cart-content {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.item-header h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.price {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ion-color-primary);
+}
+
+.ingredientes {
+  margin-top: 4px;
+  color: var(--ion-color-medium);
+  font-size: 0.85rem;
+}
+
+.ingredientes-removidos {
+  margin-top: 2px;
+  color: var(--ion-color-danger);
+  font-size: 0.8rem;
+}
+
+.total-card {
+  margin: 16px;
+}
+
+.edit-item {
+  --background: rgba(var(--ion-color-light-rgb), 0.3);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--ion-color-medium);
+}
+
+.empty-state ion-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  color: var(--ion-color-medium);
+}
