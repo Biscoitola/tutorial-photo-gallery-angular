@@ -3,7 +3,10 @@ import { ToastController } from '@ionic/angular';
 import { ProdutosService } from '../services/produtos.service';
 import { PedidoService } from '../services/pedido.service';
 import { Item } from '../types/Item';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
+=======
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac
 
 @Component({
   selector: 'app-tab1',
@@ -11,6 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page implements OnInit {
+<<<<<<< HEAD
   lanches = []
   constructor(private toastController: ToastController,
     private produtosService: ProdutosService,
@@ -51,5 +55,34 @@ export class Tab1Page implements OnInit {
 
 
 
+=======
+  lanches = [] 
+  constructor(private toastController: ToastController, 
+    private produtosService: ProdutosService,
+    private pedidoService:PedidoService
+  ) {}
+
+  ngOnInit(){
+    this.lanches = this.produtosService.buscarLanches()
+  }
+
+
+  async adicionarProduto(item:Item){
+    const toast = await this.toastController.create({
+      message:  `${item.nome} foi adicionado ao pedido`,
+      duration: 3000,
+      color:'light',
+      position:'bottom'
+    })
+    //toast.present();
+
+    this.pedidoService.adicionarItem(item)
+  }
+
+
+
+
+  
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac
 
 }

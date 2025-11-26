@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button menu="appMenu" autoHide="false"></ion-menu-button>
+=======
+<ion-header class="">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac
     </ion-buttons>
     <ion-title class="ion-text-center">
       Bebidas
     </ion-title>
+<<<<<<< HEAD
     <ion-buttons slot="end">
       <ion-button fill="clear" size="small" (click)="adicionarNovaBebida()">
         <ion-icon name="create-outline"></ion-icon>
@@ -21,10 +29,27 @@
         <ion-avatar>
           <img class="avatar"
             src="https://images.unsplash.com/photo-1468465226960-a5d2a7f0c166?auto=format&fit=crop&w=120&q=60" />
+=======
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let produto of bebidas">
+    <ion-item-sliding>
+      <ion-item-options side="start">
+        <ion-item-option color="success">Editar</ion-item-option>
+      </ion-item-options>
+
+      <ion-item>
+        <ion-avatar>
+          <img class="avatar" [src]="produto.imagem" [alt]="produto.nome" />
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac
         </ion-avatar>
 
         <ion-label class="label">
           <h2>
+<<<<<<< HEAD
             {{ bebida.nome }}
           </h2>
           <h4 class="preco">
@@ -40,4 +65,27 @@
       </ion-item>
     </ion-item-sliding>
   </ion-list>
+=======
+            {{ produto.nome }}
+          </h2>
+          <h4 class="preco">
+            R$ {{ produto.preco }}
+          </h4>
+          <p>
+            {{ produto.ingredientes }}
+          </p>
+        </ion-label>
+        <ion-button shape="round" slot="end" fill="clear" class="btn-icon" (click)="adicionarProduto(produto)">
+          <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger">Deletar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac
 </ion-content>

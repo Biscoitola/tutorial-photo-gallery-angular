@@ -1,11 +1,21 @@
+<<<<<<< HEAD
 .transparent-menu {
   --width: 280px;
   --background: transparent;
+=======
+ion-menu.transparent-menu {
+  --width: 260px;
+  --ion-background-color: transparent;
+  --background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  color: #fff;
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac
 
   ion-content {
     --background: transparent;
   }
 
+<<<<<<< HEAD
   ion-backdrop {
     background: rgba(0, 0, 0, 0.35);
   }
@@ -66,4 +76,22 @@
     --background: rgba(255, 255, 255, 0.15);
     transform: translateX(6px);
   }
+=======
+  ion-list,
+  ion-item {
+    background: transparent;
+    --background: transparent;
+  }
+
+  ion-icon,
+  ion-label {
+    color: inherit;
+  }
+}
+
+.transparent-toolbar {
+  --background: transparent;
+  --ion-toolbar-background: transparent;
+  color: #fff;
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac
 }

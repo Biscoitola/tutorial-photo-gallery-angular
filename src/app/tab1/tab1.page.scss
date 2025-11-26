@@ -9,11 +9,25 @@ ion-item {
 
 }
 
+<<<<<<< HEAD
 .avatar{
   width: 7%;
   height: auto;
   min-width: 7%;
   margin-right: 2%;
+=======
+ion-avatar {
+  width: 64px;
+  height: 64px;
+  margin-right: 12px;
+}
+
+ion-avatar .avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac
 }
 
 .label {
@@ -33,4 +47,8 @@ ion-item {
 .btn-icon ion-icon{
 
   font-size: 2.5rem;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac

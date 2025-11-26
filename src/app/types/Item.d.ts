@@ -6,16 +6,24 @@ export type ItemCarrinho = {
     imagem:string
     ingredientesRemovidos:string[]
     ingredientes: string[]
+<<<<<<< HEAD
     tipo?: string
     volume?: string
 }
 
 export type Item = {
     id?: number
+=======
+}
+
+export type Item = {
+    id: number
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac
     nome: string
     preco: number
     imagem:string
     ingredientes: string[]
+<<<<<<< HEAD
 }
 
 export type Bebida = {
@@ -28,3 +36,6 @@ export type Bebida = {
     descricao?: string
     imagem?: string
 }
+=======
+}
+>>>>>>> 158640191f789e7b10bd757da672df186e9450ac
