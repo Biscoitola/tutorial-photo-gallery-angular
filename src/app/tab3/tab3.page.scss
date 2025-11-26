@@ -1,3 +1,74 @@
-ion-content ion-toolbar {
-  --background: translucent;
+ion-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-bottom: 24px;
+}
+
+.cart-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-item {
+  border-radius: 12px;
+  margin-bottom: 12px;
+  --background: rgba(255, 255, 255, 0.85);
+}
+
+.preco-item {
+  font-weight: 600;
+  color: var(--ion-color-primary);
+}
+
+.ingredientes-removidos {
+  font-size: 0.85rem;
+  color: var(--ion-color-danger);
+}
+
+.editor-ingredientes ion-item {
+  background: transparent;
+  margin-bottom: 6px;
+}
+
+.lista-ingredientes {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.editor-acoes {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.resumo-card {
+  margin-top: auto;
+  border-radius: 18px;
+}
+
+.resumo-linha {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+}
+
+.resumo-linha.total {
+  font-size: 1.1rem;
+}
+
+.acoes-resumo ion-button + ion-button {
+  margin-top: 10px;
+}
+
+.estado-vazio {
+  margin-top: 60px;
+  text-align: center;
+  color: var(--ion-color-medium);
+
+  ion-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    color: var(--ion-color-primary);
+  }
 }

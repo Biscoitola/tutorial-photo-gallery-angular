@@ -1,29 +1,43 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Photo Gallery
+    <ion-buttons slot="start">
+      <ion-menu-button menu="appMenu" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Bebidas
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" size="small" (click)="adicionarNovaBebida()">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Photo Gallery</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-item-sliding *ngFor="let bebida of bebidas">
+      <ion-item>
+        <ion-avatar>
+          <img class="avatar"
+            src="https://images.unsplash.com/photo-1468465226960-a5d2a7f0c166?auto=format&fit=crop&w=120&q=60" />
+        </ion-avatar>
 
-  <ion-grid>
-    <ion-row>
-    <ion-col size="6" *ngFor="let photo of photoService.photos; index as position">
-      <ion-img [src]="photo.webviewPath" (click)="showActionSheet(photo, position)"></ion-img>
-    </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="photoService.addNewToGallery()">
-      <ion-icon name="camera"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+        <ion-label class="label">
+          <h2>
+            {{ bebida.nome }}
+          </h2>
+          <h4 class="preco">
+            R$ {{ bebida.preco }}
+          </h4>
+          <p>
+            {{ bebida.tipo }} - {{ bebida.volume }}
+          </p>
+        </ion-label>
+        <ion-button shape="round" slot="end" fill="clear" class="btn-icon" (click)="adicionarBebida(bebida)">
+          <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

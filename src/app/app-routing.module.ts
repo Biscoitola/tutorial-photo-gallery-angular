@@ -5,7 +5,12 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'tela-produtos',
+    loadChildren: () => import('./tela-produtos/tela-produtos.module').then( m => m.TelaProdutosPageModule)
   }
+
 ];
 @NgModule({
   imports: [

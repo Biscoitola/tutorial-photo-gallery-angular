@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 import { SplashScreen } from '@capacitor/splash-screen'
 @Component({
   selector: 'app-root',
@@ -6,7 +7,7 @@ import { SplashScreen } from '@capacitor/splash-screen'
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  constructor() {
+  constructor(private menuController: MenuController) {
     this.initializeApp();
   }
 
@@ -18,5 +19,6 @@ export class AppComponent {
         https://capacitor.ionicframework.com/docs/apis/splash-screen#hiding-the-splash-screen
     */
     SplashScreen.hide();
+    this.menuController.enable(true, 'appMenu');
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PedidoService } from '../services/pedido.service';
 
 @Component({
   selector: 'app-tabs',
@@ -6,7 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
+  
+  constructor(
+    
+  ) {}
 
-  constructor() {}
+
+
+
 
 }

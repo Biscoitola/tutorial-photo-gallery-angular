@@ -1,0 +1,69 @@
+.transparent-menu {
+  --width: 280px;
+  --background: transparent;
+
+  ion-content {
+    --background: transparent;
+  }
+
+  ion-backdrop {
+    background: rgba(0, 0, 0, 0.35);
+  }
+}
+
+.menu-panel {
+  height: 100%;
+  padding: 24px 20px;
+  background: rgba(15, 15, 15, 0.85);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transform: translateX(-24px);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.transparent-menu.menu-pane-visible .menu-panel {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+
+  ion-icon {
+    font-size: 2rem;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.8;
+  }
+}
+
+.menu-panel ion-item {
+  --background: rgba(255, 255, 255, 0.05);
+  --border-radius: 12px;
+  margin-bottom: 10px;
+  --padding-start: 12px;
+  transition: transform 0.3s ease, background 0.3s ease;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    --background: rgba(255, 255, 255, 0.15);
+    transform: translateX(6px);
+  }
+}

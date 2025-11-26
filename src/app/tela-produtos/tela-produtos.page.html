@@ -1,0 +1,231 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestao do cardapio</ion-title>
+  </ion-toolbar>
+  <div class="header-menu">
+    <div class="menu-panel">
+      <div class="menu-header">
+        <ion-icon name="restaurant-outline"></ion-icon>
+        <div>
+          <h2>Menu do app</h2>
+          <p>Atalhos rapidos</p>
+        </div>
+      </div>
+      <ion-list lines="none">
+        <ion-item button routerLink="/tabs/tab1">
+          <ion-icon slot="start" name="fast-food-outline"></ion-icon>
+          <ion-label>Lanches</ion-label>
+        </ion-item>
+        <ion-item button routerLink="/tabs/tab2">
+          <ion-icon slot="start" name="beer-outline"></ion-icon>
+          <ion-label>Bebidas</ion-label>
+        </ion-item>
+        <ion-item button routerLink="/tabs/tab3">
+          <ion-icon slot="start" name="cart-outline"></ion-icon>
+          <ion-label>Carrinho</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <ion-card class="intro-card">
+    <ion-card-content>
+      <div>
+        <ion-icon [name]="segmentoCadastro === 'lanches' ? 'fast-food-outline' : 'wine-outline'"></ion-icon>
+        <div>
+          <h1>
+            {{ segmentoCadastro === 'lanches' ? (modoEdicao ? 'Editar Lanche' : 'Cadastrar Lanche') : 'Cadastrar Bebida' }}
+          </h1>
+          <p>
+            {{ segmentoCadastro === 'lanches'
+                ? (modoEdicao ? 'Atualize as informacoes do lanche.' : 'Adicione novos itens ao cardapio.')
+                : 'Cadastre bebidas para o menu e atualize facilmente os estoques.' }}
+          </p>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-segment [(ngModel)]="segmentoCadastro" value="lanches" class="cadastro-segment">
+    <ion-segment-button value="lanches">
+      <ion-label>Lanches</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="bebidas">
+      <ion-label>Bebidas</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segmentoCadastro">
+    <div *ngSwitchCase="'lanches'">
+      <form [formGroup]="formularioProduto" (ngSubmit)="salvarItem()">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              Informacoes basicas de produto
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-item lines="none">
+              <ion-icon name="fast-food" slot="start" color="primary"></ion-icon>
+              <ion-label position="floating">Nome do item</ion-label>
+              <ion-input formControlName="nome" placeholder="Ex: Hamburguer" type="text" maxLength="50">
+              </ion-input>
+              <ion-text color="danger"
+                *ngIf="formularioProduto.get('nome')?.invalid && formularioProduto.get('nome')?.touched">
+                <small>Nome e obrigatorio e deve ter mais de 3 letras</small>
+              </ion-text>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-icon name="cash" slot="start" color="success"></ion-icon>
+              <ion-label position="floating">Preco</ion-label>
+              <ion-input formControlName="preco" placeholder="Ex: 12.50" type="number" maxLength="5">
+              </ion-input>
+              <ion-text color="danger"
+                *ngIf="formularioProduto.get('preco')?.invalid && formularioProduto.get('preco')?.touched">
+                <small>Valor e obrigatorio</small>
+              </ion-text>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-icon name="image" slot="start" color="warning"></ion-icon>
+              <ion-input label="url da imagem" labelPlacement="floating" formControlName="imagem"
+                placeholder="http://localhost:9000" type="url">
+              </ion-input>
+              <ion-text color="danger"
+                *ngIf="formularioProduto.get('imagem')?.invalid && formularioProduto.get('imagem')?.touched">
+                <small>Imagem e obrigatoria</small>
+              </ion-text>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-icon name="restaurant" slot="start" color="danger"></ion-icon>
+              <ion-input label="ingredientes" labelPlacement="floating" formControlName="ingredientes"
+                placeholder="Ex: Hamburguer, queijo, pao" type="text" maxLength="60">
+              </ion-input>
+              <p>
+                <small>Separe os itens por virgula</small>
+              </p>
+              <ion-text color="danger"
+                *ngIf="formularioProduto.get('ingredientes')?.invalid && formularioProduto.get('ingredientes')?.touched">
+                <small>Ingredientes sao obrigatorios</small>
+              </ion-text>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button color="danger" expand="full" type="button" (click)="limparFormulario()">
+                cancelar
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="primary" expand="full" type="submit" [disabled]="formularioProduto.invalid">
+                salvar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </div>
+
+    <div *ngSwitchCase="'bebidas'">
+      <form [formGroup]="formularioBebida" (ngSubmit)="salvarBebida()" class="form-bebida">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Cadastro de bebidas</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item lines="none">
+              <ion-icon name="wine-outline" slot="start" color="primary"></ion-icon>
+              <ion-label position="floating">Nome</ion-label>
+              <ion-input formControlName="nome" placeholder="Ex: Coca-Cola" type="text" maxlength="60"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="formularioBebida.get('nome')?.invalid && formularioBebida.get('nome')?.touched">
+              <small>Informe pelo menos 2 caracteres.</small>
+            </ion-text>
+
+            <ion-item lines="none">
+              <ion-icon name="pricetag-outline" slot="start" color="success"></ion-icon>
+              <ion-label position="floating">Preco (R$)</ion-label>
+              <ion-input formControlName="preco" type="number" step="0.01" min="0"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="formularioBebida.get('preco')?.invalid && formularioBebida.get('preco')?.touched">
+              <small>Informe um valor maior que zero.</small>
+            </ion-text>
+
+            <ion-item lines="none">
+              <ion-icon name="options-outline" slot="start" color="warning"></ion-icon>
+              <ion-label>Tipo</ion-label>
+              <ion-select formControlName="tipo" interface="popover">
+                <ion-select-option *ngFor="let tipo of tiposDisponiveis" [value]="tipo">{{ tipo }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-icon name="cube-outline" slot="start" color="tertiary"></ion-icon>
+              <ion-label>Volume</ion-label>
+              <ion-select formControlName="volume" interface="popover">
+                <ion-select-option *ngFor="let volume of volumesDisponiveis" [value]="volume">{{ volume }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-label>Bebida alcoolica</ion-label>
+              <ion-toggle formControlName="alcoolica" color="danger"></ion-toggle>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-icon name="document-text-outline" slot="start" color="medium"></ion-icon>
+              <ion-textarea formControlName="descricao" placeholder="Notas extras, harmonizacoes ou observacoes."></ion-textarea>
+            </ion-item>
+
+            <div class="actions">
+              <ion-button color="medium" fill="clear" type="button" (click)="limparFormularioBebida()">
+                limpar
+              </ion-button>
+              <ion-button color="primary" type="submit" [disabled]="formularioBebida.invalid">
+                salvar bebida
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </form>
+
+      <ion-card class="lista-card">
+        <ion-card-header>
+          <ion-card-title>Bebidas cadastradas</ion-card-title>
+          <ion-card-subtitle *ngIf="bebidasCadastradas.length > 0">
+            {{ bebidasCadastradas.length }} item(s)
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ng-container *ngIf="bebidasCadastradas.length > 0; else listaVazia">
+            <ion-list lines="none">
+              <ion-item class="bebida-item" *ngFor="let bebida of bebidasCadastradas">
+                <ion-avatar slot="start" class="avatar-bebida">
+                  <ion-icon [name]="bebida.alcoolica ? 'wine-outline' : 'water-outline'"></ion-icon>
+                </ion-avatar>
+                <ion-label>
+                  <h2>{{ bebida.nome }}</h2>
+                  <p>{{ bebida.tipo }} - {{ bebida.volume }}</p>
+                  <p class="preco">{{ bebida.preco | currency:'BRL':'symbol-narrow' }}</p>
+                  <ion-badge color="danger" *ngIf="bebida.alcoolica">Alcoolica</ion-badge>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ng-container>
+          <ng-template #listaVazia>
+            <ion-text color="medium">
+              <p>Nenhuma bebida cadastrada ainda.</p>
+            </ion-text>
+          </ng-template>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

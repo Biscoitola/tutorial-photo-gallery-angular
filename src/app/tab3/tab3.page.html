@@ -1,17 +1,97 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="appMenu" autoHide="false"></ion-menu-button>
+    </ion-buttons>
     <ion-title>
-      Tab 3
+      Carrinho de compras
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="cart-wrapper">
+    <ng-container *ngIf="pedido.length > 0; else carrinhoVazio">
+      <ion-list>
+        <ng-container *ngFor="let produto of pedido">
+          <ion-item>
+            <ion-avatar slot="start">
+              <img [src]="produto.imagem || 'assets/icon/fast-food.svg'" [alt]="produto.nome">
+            </ion-avatar>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+            <ion-label>
+              <h2>{{produto.nome}}</h2>
+              <p>{{ produto.ingredientes.join(', ') }}</p>
+              <p class="preco-item">{{ produto.preco | currency:'BRL':'symbol-narrow' }}</p>
+              <p class="ingredientes-removidos" *ngIf="produto.ingredientesRemovidos.length > 0">
+                Sem: {{produto.ingredientesRemovidos.join(', ')}}
+              </p>
+            </ion-label>
+            <ion-item-group slot="end">
+              <ion-button fill="clear" size="small" (click)="editarIngredientes(produto)">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" color="danger" size="small" (click)="removerItem(produto.idSequencial)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-item-group>
+          </ion-item>
+
+          <ion-item *ngIf="itemEditando?.idSequencial === produto.idSequencial" class="editor-ingredientes">
+            <ion-label>
+              <h3>Editar ingredientes</h3>
+              <div class="lista-ingredientes">
+                <ion-item *ngFor="let ingrediente of produto.ingredientes" lines="none">
+                  <ion-checkbox slot="start" [checked]="ingredientesSelecionados[ingrediente]"
+                    (ionChange)="ingredientesSelecionados[ingrediente] = $event.detail.checked">
+                  </ion-checkbox>
+                  <ion-label>{{ ingrediente }}</ion-label>
+                </ion-item>
+              </div>
+              <div class="editor-acoes">
+                <ion-button fill="outline" size="small" color="medium" (click)="cancelarEdicao()">
+                  cancelar
+                </ion-button>
+                <ion-button fill="solid" size="small" color="primary" (click)="salvarIngredientes()">
+                  salvar
+                </ion-button>
+              </div>
+            </ion-label>
+          </ion-item>
+        </ng-container>
+      </ion-list>
+
+      <ion-card class="resumo-card">
+        <ion-card-header>
+          <ion-card-title>Resumo</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="resumo-linha">
+            <span>Itens</span>
+            <strong>{{ pedido.length }}</strong>
+          </div>
+          <div class="resumo-linha total">
+            <span>Total</span>
+            <strong>{{ valorTotal | currency:'BRL':'symbol-narrow' }}</strong>
+          </div>
+          <div class="acoes-resumo">
+            <ion-button color="medium" fill="outline" expand="block" (click)="cancelarPedido()">
+              cancelar pedido
+            </ion-button>
+            <ion-button color="success" expand="block" (click)="finalizarPedido()">
+              finalizar pedido
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <ng-template #carrinhoVazio>
+      <div class="estado-vazio">
+        <ion-icon name="cart-outline"></ion-icon>
+        <h3>Carrinho vazio</h3>
+        <p>Adicione itens na aba de lanches e bebidas para montar seu pedido.</p>
+      </div>
+    </ng-template>
+  </div>
 </ion-content>
